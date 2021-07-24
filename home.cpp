@@ -3,6 +3,8 @@
 #include<string.h>
 #include<bits/stdc++.h>
 using namespace std;
+char choice;
+ofstream file("vaccine.txt");
  
 
 class vaccine{
@@ -18,14 +20,35 @@ class vaccine{
             void vaccine_available();
             void search();
             void exit();
+            void display();
+             
            
 
-};
+}V;
+
+void vaccine::display(){
+    cout<<"******Your Information******"<<endl;
+    fstream file;
+    file.open("vaccine.txt",ios::in);
+    if(!file){
+        cout<<"Error"<<endl;
+    }
+    else{
+        char ch;
+        while(!file.eof()){
+            file<<ch<<endl;
+            cout<<ch;
+        }
+        file.close();
+        }
+    }
+
 void vaccine::newrecord()
 {
     cout<<"\t\t\t\t\t\t\t********VACCINE REGISTRATION SYSTEM***********"<<endl;
     cout<<"New Registration________"<<endl;
-    ofstream file("vaccine.txt");
+   ofstream file("vaccine.txt");
+
     if(!file.is_open())
   {
       cout<<"ERROR"<<endl;
@@ -33,6 +56,7 @@ void vaccine::newrecord()
   else
   {
       cout<<"\t\t\t\t\t\t\t************VACCINE MANAGEMENT SYSTEM****************"<<endl;
+      
 
       cout<<"New Registration"<<endl;
       cout<<"Enter Name:";
@@ -71,17 +95,94 @@ void vaccine::newrecord()
 
 
 
+
+  cout<<"Do you want to continue"<<endl;
+  cin>>choice;
                                         
+  }
+
+  }
+
+  void vaccine::search(){
+      cout<<"\t\t\t\t\t\t\t************VACCINE MANAGEMENT SYSTEM****************"<<endl;
+      cout<<"1).Mobile \t\t\t\t\t\t\t\t 2).Adhar Number\n"<<endl;
+      cout<<"\n"<<endl;
+      cout<<"Enter the way to get  your status"<<endl;
+      cin>>choice;
+
+      switch (choice)
+      {
+      case 1:
+      long long int M;
+      cout<<"Enter mobile number to be searched:"<<endl;
+      cin>>M;
+
+          while(!file.eof()){
+
+              if(V.mobile==M)
+              //we'll call here our display function
+              display();
+
+              else
+              cout<<"Record not found\n"<<endl;
+             
+          }
+          break;
+          case 2:
+      long long int A;
+      cout<<"Enter aadhar number to be searched:"<<endl;
+      cin>>M;
+
+          while(!file.eof()){
+
+              if(V.aadhar==A)
+              //we'll call here our display function
+              display();
+
+              else
+              cout<<"Record not found\n"<<endl;
+             
+          }
+          break;
+
+
+          
+      
+      default:
+      cout<<"Invalid choice\n"<<endl;
+          break;
+      }
+
+
+    
+
+
   }
    
     
 
-}
+
 
 
 int main()
 {
     vaccine v;
-    v.newrecord();
+    cout<<"1.)new record \t\t\t\t\t\t   2).Display\n";
+    cin>>choice;
+    switch (choice)
+    {
+    case 1:
+        /* code */v.newrecord();
+        break;
+    case 2:
+        v.display();
+        break;
+    
+    default:
+    cout<<"Invalid"<<endl;
+        break;
+    }
+    
+    
     return 0;
 }
