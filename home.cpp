@@ -96,8 +96,8 @@ void vaccine::newrecord()
 
 
 
-  cout<<"Do you want to continue"<<endl;
-  cin>>choice;
+  /*cout<<"Do you want to continue"<<endl;
+  cin>>choice;*/
                                         
   }
 
@@ -167,9 +167,12 @@ void vaccine::newrecord()
 int main()
 {
     vaccine v;
-    cout<<"1.)new record \t\t\t\t\t\t   2).Display\n";
-    cin>>choice;
-    switch (choice)
+    int ch;
+    
+    cout<<"1)new record \t\t\t\t\t\t   2)Display\n";
+    cin>>ch;
+    
+    switch (ch)
     {
     case 1:
         /* code */v.newrecord();
