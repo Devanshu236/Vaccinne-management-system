@@ -21,32 +21,44 @@ class vaccine{
             void search();
             void exit();
             void display();
+            void menu();
              
            
 
-}V;
+}v;
+void vaccine:: menu()
+{
+    int ch;
+    
+    cout<<"1)new record \t\t\t\t\t\t   2)Display\n";
+    cin>>ch;
+    
+    switch (ch)
+    {
+    case 1:
+       v.newrecord();
+        break;
+    case 2:
+        v.display();
+        break;
+    case 3:
+        v.login();
+        break;
+    case 4:
+        v.exit();
+        break;
+    
+    default:
+    cout<<"Invalid"<<endl;
+        break;
+    }
+}
 
-void vaccine::display(){
-    cout<<"******Your Information******"<<endl;
-    fstream file;
-    file.open("vaccine.txt",ios::in);
-    if(!file){
-        cout<<"Error"<<endl;
-    }
-    else{
-        char ch;
-        while(!file.eof()){
-            file<<ch<<endl;
-            cout<<ch;
-        }
-        file.close();
-        }
-    }
+
 
 void vaccine::newrecord()
 {
-    cout<<"\t\t\t\t\t\t\t********VACCINE REGISTRATION SYSTEM***********"<<endl;
-    cout<<"New Registration________"<<endl;
+    
    ofstream file("vaccine.txt");
 
     if(!file.is_open())
@@ -60,7 +72,7 @@ void vaccine::newrecord()
 
       cout<<"New Registration"<<endl;
       cout<<"Enter Name:";
-      cin.getline(name,50);
+      cin>>name;
       file<<name<<endl;
       cout<<"\n"<<endl;
       cout<<"Enter Aadhar Number:";
@@ -91,7 +103,12 @@ void vaccine::newrecord()
       cout<<"No. of Doses Taken:";
       cin>>no_of_doses;
       file<<no_of_doses<<endl;
-
+      cout<<"Do you want to go to main menu:";
+      char var;
+      cin>>var;
+      if(var=='y')
+        v.menu();
+    
 
 
 
@@ -102,6 +119,23 @@ void vaccine::newrecord()
   }
 
   }
+  void vaccine::display(){
+    cout<<"******Your Information******"<<endl;
+    fstream file;
+    file.open("vaccine.txt",ios::in);
+    if(!file){
+        cout<<"Error"<<endl;
+    }
+    else{
+        char ch;
+        while(!file.eof()){
+            file<<ch<<endl;
+            cout<<ch;
+            file.close();
+        }
+        
+        }
+    }
 
   void vaccine::search(){
       cout<<"\t\t\t\t\t\t\t************VACCINE MANAGEMENT SYSTEM****************"<<endl;
@@ -119,7 +153,7 @@ void vaccine::newrecord()
 
           while(!file.eof()){
 
-              if(V.mobile==M)
+              if(v.mobile==M)
               //we'll call here our display function
               display();
 
@@ -135,7 +169,7 @@ void vaccine::newrecord()
 
           while(!file.eof()){
 
-              if(V.aadhar==A)
+              if(v.aadhar==A)
               //we'll call here our display function
               display();
 
@@ -154,11 +188,75 @@ void vaccine::newrecord()
       }
 
 
+
     
 
 
   }
-   
+  bool checkCaptcha(string &captcha, string &user_captcha)
+{
+    return captcha.compare(user_captcha) == 0;
+}
+ 
+// Generates a CAPTCHA of given length
+string generateCaptcha(int n)
+{
+    time_t t;
+    srand((unsigned)time(&t));
+ 
+    // Characters to be included
+    char *chrs = "abcdefghijklmnopqrstuvwxyzABCDEFGHI"
+                  "JKLMNOPQRSTUVWXYZ0123456789";
+ 
+    // Generate n characters from above set and
+    // add these characters to captcha.
+    string captcha = "";
+    while (n--)
+        captcha.push_back(chrs[rand()%62]);
+ 
+    return captcha;
+}
+  void vaccine::login()
+  {
+      char username[50], password[10];
+      cout<<"Enter Username:";
+      cin>>username;
+      cout<<"\n";
+      cout<<"Enter Password:";
+      cin>>password;
+      cout<<"\n";
+      string captcha = generateCaptcha(9);
+    cout << captcha;
+ 
+    // Ask user to enter a CAPTCHA
+    string usr_captcha;
+    cout << "\nEnter above CAPTCHA: ";
+    cin >> usr_captcha;
+ 
+    // Notify user about matching status
+    if (checkCaptcha(captcha, usr_captcha)){
+         system("CLS");
+        v.menu();
+    }
+       
+    else
+        printf("\nCAPTCHA Not Matched");
+ 
+  }
+void vaccine::exit()
+{   int val;
+    cout<<"THANKYOU"<<endl;
+    cout<<"Press 1 to Exit";
+    cin>>val;
+    if(val==1){
+        system("CLS");
+     return v.login();
+    }
+     
+    else
+        v.exit();
+}
+
     
 
 
@@ -167,24 +265,8 @@ void vaccine::newrecord()
 int main()
 {
     vaccine v;
-    int ch;
+    v.login();
     
-    cout<<"1)new record \t\t\t\t\t\t   2)Display\n";
-    cin>>ch;
-    
-    switch (ch)
-    {
-    case 1:
-        /* code */v.newrecord();
-        break;
-    case 2:
-        v.display();
-        break;
-    
-    default:
-    cout<<"Invalid"<<endl;
-        break;
-    }
     
     
     return 0;
