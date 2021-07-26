@@ -47,6 +47,8 @@ void vaccine:: menu()
     case 4:
         v.exit();
         break;
+    case 5:
+        v.search();
     
     default:
     cout<<"Invalid"<<endl;
@@ -121,30 +123,27 @@ void vaccine::newrecord()
   }
   void vaccine::display(){
     cout<<"******Your Information******"<<endl;
-    fstream file;
-    file.open("vaccine.txt",ios::in);
-    if(!file){
-        cout<<"Error"<<endl;
-    }
-    else{
-        char ch;
-        while(!file.eof()){
-            file<<ch<<endl;
-            cout<<ch;
-            file.close();
-        }
-        
-        }
+    ifstream is;   
+   string line;  
+   is.open("vaccine.txt");   
+   cout << "Reading from a text file:" << endl;   
+   while (getline (is,line))  
+   {  
+   cout << line << endl;  
+   }      
+   is.close();  
     }
 
   void vaccine::search(){
+      int ch;
       cout<<"\t\t\t\t\t\t\t************VACCINE MANAGEMENT SYSTEM****************"<<endl;
       cout<<"1).Mobile \t\t\t\t\t\t\t\t 2).Adhar Number\n"<<endl;
       cout<<"\n"<<endl;
-      cout<<"Enter the way to get  your status"<<endl;
-      cin>>choice;
 
-      switch (choice)
+      cout<<"Enter the way to get  your status"<<endl;
+      cin>>ch;
+
+      switch (ch)
       {
       case 1:
       long long int M;
